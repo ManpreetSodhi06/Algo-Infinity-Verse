@@ -713,6 +713,7 @@ const dsaTopics = [
       "Merge Intervals",
       "Product Except Self",
       "Spiral Matrix",
+      "Best Time to Buy and Sell Stock",
     ],
   },
   {
@@ -937,6 +938,21 @@ const practiceProblems = [
     tags: ["Graphs", "Topological Sort"],
     acceptance: "44.7%",
     category: "graphs",
+  },
+  {
+    id: 16,
+    title: "Best Time to Buy and Sell Stock",
+    difficulty: "easy",
+    tags: ["Arrays", "Greedy"],
+    acceptance: "54.3%",
+    category: "arrays",
+    description:
+      "Given an array prices where prices[i] is the price of a given stock on the iᵗʰ day, return the maximum profit you can achieve by choosing a single day to buy one stock and choosing a different day in the future to sell that stock. If no profit is possible, return 0.",
+    constraints: [
+      "1 ≤ prices.length ≤ 10⁵",
+      "0 ≤ prices[i] ≤ 10⁴",
+    ],
+    followUp: "Can you solve it in O(n) time and O(1) space?",
   },
 ];
 
@@ -3642,6 +3658,12 @@ function generateExamples(problem) {
         <strong>Example 2:</strong><br>Input: numCourses = 2, prerequisites = [[1,0],[0,1]]<br>Output: false<br>Explanation: Cycle detected — impossible to finish<br><br>
         <strong>Edge Cases:</strong><br>• No prerequisites → always true<br>• Self-loop → false<br><br>
         <strong>Follow-up:</strong> Can you return the actual course order? (Course Schedule II)`,
+
+    16: `<strong>Example 1:</strong><br>Input: prices = [7,1,5,3,6,4]<br>Output: 5<br>Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6 − 1 = 5.<br><br>
+        <strong>Example 2:</strong><br>Input: prices = [7,6,4,3,1]<br>Output: 0<br>Explanation: Prices only decrease — no profitable transaction is possible.<br><br>
+        <strong>Example 3:</strong><br>Input: prices = [2,4,1]<br>Output: 2<br>Explanation: Buy on day 1 (price = 2) and sell on day 2 (price = 4), profit = 2.<br><br>
+        <strong>Edge Cases:</strong><br>• Single element → 0 (can't sell)<br>• All same prices → 0<br>• Minimum at the very end → 0<br><br>
+        <strong>Follow-up:</strong> Can you solve it in O(n) time and O(1) space using a greedy approach (track the minimum price so far)?`,
   };
   return (
     examples[problem.id] || "<strong>Example:</strong><br>Solve this problem"

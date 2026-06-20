@@ -1,4 +1,9 @@
-// Contributors Data (will be fetched from API)
+// Contributor Data & UI logic. For dynamic GitHub fetching, contributors/index.html
+// already loads GitHub data in-page and opens a modal profile with full details.
+// If you prefer a separate profile page instead of a modal, replace the modal
+// redirect in contributors/index.html with: `window.location.href='profile.html?username=' + username;`
+// and update this file to read from the query param there.
+
 const contributorsData = [
     {
         id: 1,
@@ -35,14 +40,13 @@ const contributorsData = [
     }
 ];
 
-// Render Leaderboard
 function renderLeaderboard(contributors) {
     const sorted = [...contributors].sort((a, b) => b.contributions - a.contributions);
     const top3 = sorted.slice(0, 3);
     const leaderboardEl = document.getElementById('leaderboard');
-    
-    const ranks = ['🥇', '🥈', '🥉'];
-    
+
+    const ranks = ['1', '2', '3'];
+
     leaderboardEl.innerHTML = top3.map((contributor, index) => `
         <div class="leaderboard-item" onclick="viewProfile('${contributor.username}')">
             <span class="leaderboard-rank">${ranks[index] || `#${index + 1}`}</span>
@@ -52,20 +56,18 @@ function renderLeaderboard(contributors) {
             <div class="leaderboard-info">
                 <div class="leaderboard-name">${contributor.name}</div>
                 <div class="leaderboard-stats">
-                    <span>📊 ${contributor.contributions} contributions</span>
-                    <span>🔀 ${contributor.prs} PRs</span>
-                    <span>📋 ${contributor.issues} issues</span>
+                    <span> ${contributor.contributions} contributions</span>
+                    <span> ${contributor.prs} PRs</span>
+                    <span> ${contributor.issues} issues</span>
                 </div>
             </div>
-            ${contributor.badges.includes('Gold') ? '<span style="font-size:1.2rem">⭐</span>' : ''}
         </div>
     `).join('');
 }
 
-// Render Contributors Grid
 function renderContributors(contributors) {
     const grid = document.getElementById('contributorsGrid');
-    
+
     grid.innerHTML = contributors.map(contributor => `
         <div class="contributor-card" onclick="viewProfile('${contributor.username}')">
             <div class="contributor-avatar">
@@ -96,12 +98,10 @@ function renderContributors(contributors) {
     `).join('');
 }
 
-// View Profile Function
 function viewProfile(username) {
-    window.location.href = `contributor-profile.html?username=${username}`;
+    window.location.href = `profile.html?username=${username}`;
 }
 
-// Initialize
 document.addEventListener('DOMContentLoaded', () => {
     renderLeaderboard(contributorsData);
     renderContributors(contributorsData);

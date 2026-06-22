@@ -56,10 +56,15 @@ input{
     padding:15px;
     border:none;
     border-radius:10px;
-    background:#151932;
+    background:`#151932`;
     color:white;
     margin-bottom:15px;
-    outline:none;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+input:focus-visible{
+    outline-color:`#8a63ff`;
 }
 
 input::placeholder{

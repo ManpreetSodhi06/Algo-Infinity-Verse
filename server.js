@@ -53,8 +53,6 @@ import {
   getHistory,
 } from "./pages/Dsa-Battle/Battleservice.js";
 
-const upload = multer({ storage: multer.memoryStorage() }).single("resume");
-const uploadCsv = multer({ storage: multer.memoryStorage() }).single("csv");
 import { instrumentJS } from "./modules/code-tracer.js";
 
 const upload = multer({
@@ -715,6 +713,7 @@ async function handleApi(req, res, pathname) {
       const tmpFile = path.join(DATA_DIR, `__trace_${crypto.randomUUID()}.mjs`);
       let snapshots = [];
       let userOutput = "";
+      let traceError = null;
 
       try {
         await fs.writeFile(tmpFile, instrumented, "utf8");
@@ -749,13 +748,6 @@ async function handleApi(req, res, pathname) {
             }
           });
         });
-      let snapshots = [];
-      let userOutput = "";
-      let traceError = null;
-      try {
-        const result = await runTrace(sourceCode, stdin);
-        snapshots = result.snapshots || [];
-        userOutput = result.output || "";
       } catch (execError) {
         traceError = execError.message;
         userOutput = `Execution error: ${traceError}`;

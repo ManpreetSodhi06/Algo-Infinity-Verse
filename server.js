@@ -46,6 +46,9 @@ import {
   getBattle,
   getHistory,
 } from "./pages/Dsa-Battle/Battleservice.js";
+
+const upload = multer({ storage: multer.memoryStorage() }).single("resume");
+const uploadCsv = multer({ storage: multer.memoryStorage() }).single("csv");
 import { instrumentJS } from "./modules/code-tracer.js";
 
 const upload = multer({
